@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>amsTest</title>
+<script type="text/javascript" src = "js/Account.js"></script>
+<script type="text/javascript" src = "js/MinusAccount.js"></script>
+<script type="text/javascript" src = "js/AccountManager.js"></script>
+</head>
+<body>
+
+<script type="text/javascript">
+
+var account = new Account('1002-654-832899', '박시원', '1234', 50000);
+console.log(account.toString());
+var mAccount = new MinusAccount('1009-654-832899', '김대출', '1234', 50000, 10000);
+console.log(mAccount.toString());
+
+var manager = new AccountManager();
+manager.add(account);
+
+manager.add(mAccount);
+console.log('-----------');
+var acc = new Account('1002-654-832899', '김시원', '2345', 10000);
+manager.add(acc);
+manager.list();
+console.log('-----------');
+console.log(manager.get('1002-654-832899').toString());
+console.log('-------------');
+manager.add(new Account('12345', '박시원', '1234', 10000));
+console.log(manager.search('박시원').toString());
+
+
+console.log(manager.typeofAcc(mAccount));
+
+
+
+</script>
+
+</body>
+</html>
