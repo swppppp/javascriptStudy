@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>자바스크립트 함수!!</title>
+<script type="text/javascript">
+
+sum(1, 2, 3); //실행돼(선언형.. hoisting됨)
+// showMsg(); //실행안돼(익명함수.. hoisting안됨)
+
+
+// #1. 선언형 함수 정의 ->변수 hoisting처럼 작용..(익명은 안돼)
+function sum(x, y, z) {
+	return x + y + z;
+}
+
+// #2. 익명 함수 정의 -->주로 전달인자로 전달(콜백함수), 또는 return할때 사용(자바에서 이름없는 지역 내부클래스같이)
+var showMsg = function(message){
+	document.write(message);
+}
+
+function some(callback) { //전달인자가 함수객체
+	callback();
+}
+
+function some2() {
+	// --
+	return function () {
+		document.write("리턴함수에요");
+	};
+}
+
+// #3. 중첩합수 ->충돌방지~~
+function hypotenuse(a, b){
+	function square(x){ 
+		return Math.pow(x, x); 
+	}
+	return Math.sqrt(square(a)+square(b));
+}
+
+// 비정형인자(인자갯수 안정하는거) ->매개변수를 아예안써용!!
+function summ(){
+	//console.log(arguments);
+	var result = 0;
+	for ( var i in arguments) {
+		result += arguments[i];
+	}
+	return result;
+}
+
+
+</script>
+
+
+
+</head>
+<body>
+<script type="text/javascript">
+// window객체에 등록된 sum 메소드 호출
+var result = sum(10, 20, 30);
+// var result = sum(10, 20); //undefined가 전달-> 숫자아니야
+document.write("결과: "+result+"<br>");
+
+showMsg("하이루<br>");
+
+some(function(){
+	document.write("익명함수 콜했어요!<br>");
+});
+
+some2()(); //some2()호출->이거자체가 함수..ㅠ여기에 또 ()로 return에담긴 함수 호출
+
+alert(hypotenuse(30, 20));
+
+console.log(summ());
+console.log(summ(1));
+console.log(summ(1, 2));
+console.log(summ(1, 2, 3));
+
+console.log(summ); //자바의 toString호출되는거라생각
+console.log(typeof summ); //typeof의 결과로 떨어지는 5가지->string, number, boolean, object, function
+
+(function(){
+	console.log("익명함수에요");
+})(); //익명함수 정의와 동시에 실행--> 괄호로 묶은 후();
+
+
+</script>
+
+
+
+
+</body>
+</html>
