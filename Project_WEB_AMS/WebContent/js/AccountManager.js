@@ -36,9 +36,31 @@ AccountManager.prototype.add = function(account) {
 }
 
 //전체출력
-AccountManager.prototype.list = function() {
+AccountManager.prototype.listAll = function() {
 	for ( var i in this.accounts) {
 		console.log(this.accounts[i].toString() + '\n');
+	}
+}
+
+//입출금계좌만 모두 출력
+AccountManager.prototype.accList = function(){
+	for ( var i in this.accounts) {
+		if(this.accounts[i] instanceof MinusAccount){
+			continue;
+		}else{
+			console.log(this.accounts[i].toString() + '\n');
+		}
+	}
+}
+
+//대출계좌만 모두 출력
+AccountManager.prototype.mAccList = function() {
+	for ( var i in this.accounts) {
+		if(this.accounts[i] instanceof MinusAccount){
+			console.log(this.accounts[i].toString() + '\n');
+		}else{
+			continue;
+		}
 	}
 }
 

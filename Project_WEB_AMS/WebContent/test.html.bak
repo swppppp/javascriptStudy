@@ -32,7 +32,7 @@ console.log(manager.search('박시원').toString());
 console.log('==============');
 manager.accList();
 manager.mAccList();
-// 수정수정
+
 
 
 
