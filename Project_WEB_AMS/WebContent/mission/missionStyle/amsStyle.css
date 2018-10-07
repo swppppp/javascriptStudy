@@ -18,6 +18,14 @@ form > div {
 	text-align: justify;
 }
 
+#whatSpan {
+	float: left;
+}
+
+#unitSpan {
+	float: right;
+}
+
 form > div > div {
 	margin-top: 2px;
 	
