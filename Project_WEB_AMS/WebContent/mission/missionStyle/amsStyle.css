@@ -1,12 +1,28 @@
-
+body{
+		margin: 1% 15% 1% 15%;
+	}
 form {
-	border: 1px solid black;
+	border: 2px solid #c5d8f7;
+	border-radius: 10px;
+	font-family: 'Open Sans', sans-serif;
 	text-align: center;
+	/*background-color: #c5d8f7; #7fa9ef */
+}
+
+h2 {
+	color: #1c5d79;
+}
+
+#accResult{
+	margin-left: 15%;
+	margin-right: 15%;
 }
 
 #amsInput{
-	background-color: #FFB2D9;
-	margin: 0 25% 0 25%;
+	/* background-color: #FFB2D9; 
+	margin-left: 25%;
+	margin-right: 25%; */
+	margin: 0 23%;
 }
 
 div {
@@ -36,6 +52,7 @@ form > div > div {
 span {
 	/* border: 1px solid black; */
 	font-weight: bold;
+	color: #1c5d79;
 }
 
 table {
@@ -48,29 +65,84 @@ table {
 	color: #1c5d79;
 }
 
+.rtd {
+	text-align: right;
+}
+
+thead tr th {
+
+    height: 32px;
+
+    line-height: 32px;
+
+    text-align: center;
+
+    color: #1c5d79;
+
+	background-color: #7fa9ef;
+    background-repeat: repeat-x;
+
+    border-left: solid 1px #FF9900;
+
+    border-right: solid 1px #FF9900;
+
+    border-collapse: collapse;
+
+}
+tbody tr {
+
+    background: #dfedf3;
+
+    font-size: 13px;
+
+}
+tbody tr th, tbody tr td {
+
+    padding: 6px;
+
+    border: solid 1px #326e87;
+
+}
+
 table, tr, td, th {
 	border: 1px solid black;
 }
 
 
-/* 1023px �씠�븯�씪�븣 �쟻�슜 �뒪���씪 */
+/* 1023px 데스크톱 우선 */
 @media (max-width: 1023px){
+	
 	#amsInput{
-		background-color: gray;
-		margin: 0 25% 0 25%;
+		/* background-color: gray; */
+		margin: 0 15%;
+		font-size: 15px; 
 	}
 	
-	
+	#accResult{
+		margin: 0 1% 3% 1%;
+	}
 }
-/* 767px�씠�븯�씪�븣 �쟻�슜 �뒪���씪 */
+
+/* 최대 폭 767px */
 @media (max-width: 767px){
+	body {
+		margin: 1%;
+	}
 	#amsInput{
-		background-color: olive;
-		margin: 0 25% 0 25%;
+		/* background-color: olive; */
+		margin: 0 13%;
 	}
 	
 	form > div > div > span{
 		font-size: 12px;
+	}
+	
+	#listSpan, #unitSpan{
+		font-size: 10px;
+	}
+	
+	tr, td{
+		font-size: 10px;
 	}
 	
 	.inputField {
@@ -81,5 +153,9 @@ table, tr, td, th {
 		font-size: 11px;
 		padding-left: 0;
 		padding-right: 0;
+	}
+	
+	thead {
+		font-size: 11px;
 	}
 }
