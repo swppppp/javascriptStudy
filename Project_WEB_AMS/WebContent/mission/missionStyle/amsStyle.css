@@ -18,7 +18,7 @@ form > div {
 	text-align: justify;
 }
 
-#whatSpan {
+#listSpan {
 	float: left;
 	margin-left: 1%;
 }
@@ -53,7 +53,7 @@ table, tr, td, th {
 }
 
 
-/* 1023px 이하일때 적용 스타일 */
+/* 1023px �씠�븯�씪�븣 �쟻�슜 �뒪���씪 */
 @media (max-width: 1023px){
 	#amsInput{
 		background-color: gray;
@@ -62,7 +62,7 @@ table, tr, td, th {
 	
 	
 }
-/* 767px이하일때 적용 스타일 */
+/* 767px�씠�븯�씪�븣 �쟻�슜 �뒪���씪 */
 @media (max-width: 767px){
 	#amsInput{
 		background-color: olive;
