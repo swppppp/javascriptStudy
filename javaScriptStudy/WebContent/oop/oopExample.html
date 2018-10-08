@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>javascript의 객체지향</title>
+
+<script type="text/javascript">
+/** 사용자정의 객체 */
+function Student(name, korean, math, english, science){
+	
+	this.name = name;
+	this.korean = korean;
+	this.math = math;
+	this.english = english;
+	this.science = science;
+	
+	//메소드
+	this.getSum = function () {
+		return this.korean + this.math + this.english + this.science;	
+	};
+	
+	this.getAvg = function() {
+		return this.getSum()/4;
+	}
+	
+	this.toString = function(){
+		return this.name +'\t'+this.korean+'\t'+this.math+'\t'+this.english+'\t'+this.science;
+	};	
+}
+
+// java의 class변수(static)와 비슷하게 Student객체의 공유변수 저장
+// 생성자안에 var schoolName ="~~"; 하면 생성자 내에서만 사용가능한 변수(지역)
+Student.schoolName = "KOSTA대학교";
+
+
+
+</script>
+
+</head>
+<body>
+<script type="text/javascript">
+var student = new Student('박시원', 85, 65, 94, 78);
+console.log(student.name);
+console.log(student.korean);
+console.log(student.math);
+console.log(student['english']); //자바스크립트는 인접배열 -> 키값을 대괄호안에써서..(특수문자뭐 이런고..)
+
+console.log(typeof Student);
+console.log(typeof student);
+console.log(student.toString()); //메소드명까지 다써줘야해요(toString안써주면 오버라이딩된거 자동으로호출안되고 브라우저별로 string값 출력해줌..)
+console.log(student); //브라우저 스크립트엔진..?레퍼런스변수주면 브라우저가 알아서 string값 출력해줌.
+
+console.log('총점: '+student.getSum());
+console.log('평균: '+student.getAvg());
+console.log(Student.schoolName);		
+		
+</script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="css/table.css">
+<title>제어문</title>
+</head>
+
+<body>
+<h2>구구단을외자!</h2>
+
+<script>
+//구구단~~
+document.write('<table>');
+
+for(var i=2; i<10; i++){
+  document.write('<tr>');
+  for(var j=2; j<10; j++){
+  	document.write('<td>'+i+' * '+j+' = '+(i*j)+'</td>');
+  }
+  document.write('</tr>');
+}
+document.write('</table>');
+</script>
+
+
+</body>
+</html>
