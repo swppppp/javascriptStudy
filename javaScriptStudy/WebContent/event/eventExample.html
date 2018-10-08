@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>이벤트 처리</title>
+</head>
+<body>
+
+<input type="button" value="클릭하시오♡" id="myBtn">
+<script type="text/javascript">
+
+ var evtSrc = document.getElementById("myBtn");
+// 이벤트 소스에 이벤트 리스너 등록
+
+
+
+function someDo() {
+	alert("버튼 눌렀어!!!헐!!");
+}
+
+evtSrc.onclick = function() {
+	console.log("버튼눌렀네★");
+};
+
+// 고전 이벤트 처리 모델
+// evtSrc.onclick = someDo; //호출아니라 전달만!!!!
+
+/////////////////////////////////
+// 표준 이벤트 처리 모델
+evtSrc.addEventListener("click", someDo );
+
+///////////////////////////////////
+// 익스플로러 이벤트 처리 모델
+//evtSrc.attachEvent("onClick", someDo);
+
+</script>
+</body>
+</html>

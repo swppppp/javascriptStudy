@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+</head>
+<body>
+
+<h2>DOM이란</h2>
+<p>자리돔이 최고라네요...</p>
+<h2>BOM이란</h2>
+<p>자리돔이 최고라네요...</p>
+<h2>Event란</h2>
+<p>자리돔이 최고라네요...</p>
+
+<script type="text/javascript">
+//DOM api를 이용한 DOM객체 접근
+var array = document.getElementsByTagName('h2');
+console.log(array.length);
+for ( var i = 0; i< array.length; i++) {
+	var obj = array[i];
+	//console.log(obj.constructor);
+	obj.style="color:#4286f4";
+}
+
+
+</script>
+
+</body>
+</html>

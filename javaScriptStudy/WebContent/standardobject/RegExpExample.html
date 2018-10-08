@@ -8,19 +8,20 @@
 <script>
 // 명시적 생성
 var regExp = new RegExp("패턴");
-console.log(regExp.constructor);
-// 묵시적 생성
-console.log(typeof /패턴/);
+console.log(regExp.constructor); // 생성자를 찍는거. 타입체크 시 최고봉!!(typrof, instanceof보다)
+// 묵시적 생성()
+console.log(typeof /패턴/); //객체!
 
-var str = "The quick brown fox jumps over th lazy dog.";
+var str = "The quick brown fox jumps over the lazy dog.";
 //var ss = str.split(new RegExp("\\s"));
-var tokens = str.split(/\s/);
+var tokens = str.split(/\s/); //s: 스페이스... escape문자 앞에 넣어줌
 for ( var i in tokens) {
 	console.log(tokens[i]);
 }
 
 
 // Self 호출을 이용한 정규표현식 테스트
+//**정규표현식에 쓰이는 문자나 기호 알아보기
 (function() {
 	var s = "1    , 2, 3, 4, 5";
 	// * : 앞의 항목이 0번 이상 
@@ -32,7 +33,7 @@ for ( var i in tokens) {
 	}
 })();
 
-
+// modifier... /pattern/modifier
 (function() {
 	var str = "JavaScript is more fun than java!";
 	// g : 전역매칭 수행(처음 매치에서 끝내지 않고 모든 매치 찾음) 
@@ -90,7 +91,8 @@ for ( var i in tokens) {
 	document.write("<br>");
 })();
 
-
+// 자바에 없는 search메소드(자바 match메소드랑 비슷)
+// 찾는 위치(인덱스)가 결과값
 (function() {
 	var src = "is but a Dream within a dream";
 	var reg = /dream/;
@@ -99,6 +101,10 @@ for ( var i in tokens) {
 	document.write(position);
 	document.write("<br>");
 })();
+
+// regexp객체 자체의 메소드도 있음
+// 위는 string객체의 메소드야.
+// test()메소드: 일치하는지 여부(boolean값 반환)
 
 </script>
 </html>

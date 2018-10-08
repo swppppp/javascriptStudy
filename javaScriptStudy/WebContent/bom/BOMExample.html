@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>브라우저와 관련된 자바스크립트 객체(BOM)</title>
+</head>
+<body>
+<h2>Browser Object Model(BOM)</h2>
+<script type="text/javascript">
+
+console.log(window);
+console.log("window객체 생성자: "+window.constructor);
+
+console.log("\n window객체 프로퍼티 & 메소드");
+for ( var name in window) {
+//	console.log(name + " : "+window[name]);
+}
+
+// window.close();
+
+console.log(this);
+
+var x =10;
+// window.x = 10;
+console.log(window.x);
+
+// document객체에 뭐있는지 보쟝
+for ( var name in window.document) {
+	console.log(name + " : "+ document[name]);
+}
+
+
+</script>
+
+
+
+</body>
+</html>

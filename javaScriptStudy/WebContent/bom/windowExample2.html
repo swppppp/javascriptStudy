@@ -10,20 +10,20 @@
 
 //window.open();
 //open("http://www.naver.com");
-//open("http://www.naver.com", "myWindow");
-//open("http://www.naver.com", "myWindow", "width=200, height=100");
+//open("http://www.naver.com", "myWindow"); // open할때 이름지정
+//open("http://www.naver.com", "myWindow", "width=200, height=100"); // open할때 브라우저 크기지정
 //open("http://www.w3schools.com", "_blank", "toolbar=yes, scrollbars=yes, resizable=yes, top=200, left=200, width=400, height=400");
 
 function openWindow() {
-   myWindow = window.open("windowExample.html", "myWindow", "width=200, height=200");
+   myWindow = window.open("windowExample.html", "myWindow", "width=200, height=200"); //opne메소드는 return타입이 객체
 }
 
 function closeWindow() {
     myWindow.close();
 }
 
-//openWindow();
-//closeWindow();
+// openWindow();
+// closeWindow();
 
 window.setTimeout(function(){
 	//alert("경고창입니다..");

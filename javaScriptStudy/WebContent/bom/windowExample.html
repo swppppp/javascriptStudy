@@ -12,8 +12,8 @@
 <iframe src="http://www.daum.net"></iframe>
 
 <script type="text/javascript">
-console.log(Window);
-console.log(window.constructor);
+// console.log(Window);
+// console.log(window.constructor);
 
 /*
 for(var key in window) {
@@ -22,12 +22,12 @@ for(var key in window) {
 */
 
 // 대표적인 프로퍼티들...
-console.log(window.screenX);
-console.log(window.screenLeft);
+console.log(window.screenX); //브라우저 찍히는 로케이션
+console.log(window.screenLeft); //위랑 같음(java에서 setLocation이었나..)
 console.log(window.screenY);
 console.log(window.screenTop);
 
-console.log(window.document);
+// console.log(window.document);
 console.log(window.document.constructor);
 console.log(window.frames.constructor);
 console.log(window.history.constructor);
@@ -37,6 +37,9 @@ console.log(window.frames.length);
 
 console.log(frames[0].constructor);
 console.log(frames[0].document);
+
+screenX=100;
+screenY=100;
 </script>
 
 </body>

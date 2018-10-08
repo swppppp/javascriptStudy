@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>이벤트 처리</title>
+<script type="text/javascript">
+window.onload =Function(){
+	init();
+	eventRist();
+}
+
+function init() {
+	//초기화
+	//필요한 객체들 생성하거나뭐....
+	//샘플데이터라던가...
+}
+
+/** 이벤트소스에 이벤트리스너 등록 */
+function eventRist() {
+	document.getElementById("myBtn").onclick = function() {
+		exut();
+	}
+}
+
+function exit(){
+	close();
+}
+
+</script>
+</head>
+<body>
+
+<input type="button" value="클릭하시오♡" id="myBtn">
+
+</body>
+</html>

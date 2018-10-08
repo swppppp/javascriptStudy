@@ -7,7 +7,19 @@
 <link rel="stylesheet" type="text/css" href="missionStyle/amsStyle.css">
 <title>AMS 시스템</title>
 <script type="text/javascript">
+//계좌 관리를 위한 AccountManager객체를 전역에 생성
+var manager = new AccountManager();
+
+//브라우저 로드될때 실행
 window.onload = function() {
+		
+	init();
+	eventResist();
+
+};
+
+// 샘플데이터 생성 및 계좌관리객체에 담기
+function init() {
 	//샘플데이터 생성
 	var acc1 = new Account('1002-654-832899', '박시원', '1234', 300000);
 	var acc2 = new MinusAccount('1009-645-832899', '전상일', '1234', 30000, 1000000);
@@ -15,17 +27,18 @@ window.onload = function() {
 	var acc4 = new MinusAccount('1009-654-832900', '박의수', '1234', 550000, 120000);
 	var acc5 = new Account('1002-654-832901', '백욱기', '1234', 220000);
 	
-	//계좌 관리를 위한 AccountManager객체 생성 및 샘플 계좌 데이터 추가
-	var manager = new AccountManager();
+	//매니저 객체에 담기
 	manager.add(acc1);
 	manager.add(acc2);
 	manager.add(acc3);
 	manager.add(acc4);
 	manager.add(acc5);
+}
+
+function eventResist() {
+	// 전체조회-->select태그 option값에 따라 다르게
 	
-	
-	
-};
+}
 </script>
 </head>
 <body>

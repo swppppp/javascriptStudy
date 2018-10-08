@@ -7,12 +7,13 @@
 <body>
 <h2>디지털 시계 구현</h2>
 <script type="text/javascript">
+// 셀프호출
 (function(){
 	var windowWidth = 400;
 	var windowHeight = 200;
 	var x = (screen.width - windowWidth) / 2;
 	var y = (screen.height - windowHeight) / 2;
-	clockWindow = open("", "clockWindow", "left="+x+", top="+y+", width="+windowWidth+", height="+windowHeight);
+	clockWindow = open("", "clockWindow", "left="+x+", top="+y+", width="+windowWidth+", height="+windowHeight );
 })();
 
 window.setInterval(function(){

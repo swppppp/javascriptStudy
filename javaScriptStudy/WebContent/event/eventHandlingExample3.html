@@ -15,7 +15,7 @@ window.onload =  function(){
 		var event = e || window.event;
 		alert("클릭이벤트 처리 완료!");
 		if(e.stopPropagation){
-			e.stopPropagation();
+			e.stopPropagation(); // 이벤트 버블링 중지
 		}else{
 			e.cancelBubble = true;
 		}

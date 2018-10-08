@@ -5,22 +5,23 @@
 <meta charset="utf-8">
 <script>
 window.onload = function () {
-	console.log(document.myForm.name);
+	//document.getElementByName("myForm")[0].onsubmit;
+	console.log(document.myForm.name); //원래는 위처럼 접근해야하지만, 브라우저에서 바로 속성명으로 이렇게접근 지원
 	console.log(document.myForm.action);
 	console.log(document.myForm.method);
 	
 	document.myForm.name.onclick = function(){
 		//document.myForm.name.value = "";
 		this.value = "";
-	}
+	};
 	
 	document.myForm.onsubmit = function () {
 		//var name = document.myForm.name.value;
-		var name = document.forms[0].elements[0].value;
+		var name = document.forms[0].elements[0].value; //form태그에 name이 없을때..
 		if(name == null || name.length == 0){
 			alert('이름을 입력하여 주세요.');
 			 document.myForm.name.focus();
-			return false; // 디폴트 이벤트핸들러 제거
+			return false; // 디폴트 이벤트핸들러(submit) 제거
 		}
 		return true;
 		//document.myForm.submit();	        
@@ -29,7 +30,7 @@ window.onload = function () {
 </script> 
 </head>
 <body>
-<form name="myForm" action="#">
+<form name="myForm" action="#"> <!-- #은 현재페이지란뜻 -->
   <input type="text" name="name" value="이름"/><br>
   <input type="submit" value="제출"/>
 </form>

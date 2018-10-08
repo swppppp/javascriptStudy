@@ -14,9 +14,11 @@
 	
 <script type="text/javascript">
 	//var header = document.getElementById("header");
+	
+	// css의 선택자 접근을 지원하는 querySelector 메소드 추가(ecma 5 version)
 	var header = document.querySelector("#header");
 	header.style.color = "blue";
-	//header.style.["background-color"] = "blue";
+	//header.style.["background-color"] = "blue"; // -(대시)들어가있으면 []로 접근
 	header.style.backgroundColor = "yellow";
 	header.style.border = "2px double red";
 	
