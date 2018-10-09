@@ -1072,7 +1072,7 @@
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_EunC98qUEeixidBreNv0ww" elementId="org.eclipse.ui.workbench.file">
         <tags>Draggable</tags>
-        <children xsi:type="menu:HandledToolItem" xmi:id="_k9--EMt7EeiSxYYNhOnwjg" elementId="print" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/print_edit.png" tooltip="Print" command="_Euo6UsqUEeixidBreNv0ww"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_1S73oMuZEei1-sqizOYtIg" elementId="print" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/print_edit.png" tooltip="Print" command="_Euo6UsqUEeixidBreNv0ww"/>
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_EunDBMqUEeixidBreNv0ww" elementId="group.edit" toBeRendered="false">
         <tags>toolbarSeparator</tags>
@@ -1120,7 +1120,7 @@
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_EunDcMqUEeixidBreNv0ww" elementId="org.eclipse.ui.workbench.navigate">
         <tags>Draggable</tags>
-        <children xsi:type="menu:HandledToolItem" xmi:id="_k-CBYMt7EeiSxYYNhOnwjg" elementId="org.eclipse.ui.window.pinEditor" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/pin_editor.png" tooltip="Pin Editor" type="Check" command="_Euo588qUEeixidBreNv0ww"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_1TB-QMuZEei1-sqizOYtIg" elementId="org.eclipse.ui.window.pinEditor" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/pin_editor.png" tooltip="Pin Editor" type="Check" command="_Euo588qUEeixidBreNv0ww"/>
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_EunDesqUEeixidBreNv0ww" elementId="org.eclipse.wst.html.core.htmlsource.source" visible="false">
         <tags>Draggable</tags>
@@ -1277,6 +1277,7 @@
     <bindings xmi:id="_EunD7cqUEeixidBreNv0ww" keySequence="CTRL+J" command="_Euo4sMqUEeixidBreNv0ww">
       <tags>type:user</tags>
     </bindings>
+    <bindings xmi:id="_zZQZMMuZEei1-sqizOYtIg" keySequence="ALT+CTRL+ARROW_DOWN" command="_Euo4sMqUEeixidBreNv0ww"/>
   </bindingTables>
   <bindingTables xmi:id="_EunD7sqUEeixidBreNv0ww" elementId="org.eclipse.mylyn.tasks.ui.views.tasks" bindingContext="_EunqRsqUEeixidBreNv0ww">
     <bindings xmi:id="_EunD78qUEeixidBreNv0ww" keySequence="INSERT" command="_Euo4csqUEeixidBreNv0ww"/>
@@ -2465,12 +2466,6 @@
     <persistedState key="originalCompatibilityViewBundle" value="org.eclipse.wst.xsl.ui"/>
     <tags>View</tags>
     <tags>categoryTag:XML</tags>
-  </descriptors>
-  <descriptors xmi:id="_Eunq5cqUEeixidBreNv0ww" elementId="tern.eclipse.ide.ui.views.TernOutlineView" label="Tern Outline" iconURI="platform:/plugin/tern.eclipse.ide.ui/icons/full/eview16/tern-outline.png" tooltip="" category="JavaScript" closeable="true" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView">
-    <persistedState key="originalCompatibilityViewClass" value="tern.eclipse.ide.internal.ui.views.TernOutlineView"/>
-    <persistedState key="originalCompatibilityViewBundle" value="tern.eclipse.ide.ui"/>
-    <tags>View</tags>
-    <tags>categoryTag:JavaScript</tags>
   </descriptors>
   <trimContributions xmi:id="_2r10UF9tEeO-yojH_y4TJA" elementId="org.eclipse.ui.ide.application.trimcontribution.QuickAccess" contributorURI="platform:/plugin/org.eclipse.ui.ide.application" toBeRendered="false" parentId="org.eclipse.ui.main.toolbar" positionInParent="last">
     <children xsi:type="menu:ToolControl" xmi:id="_76uUAF9tEeO-yojH_y4TJA" elementId="Spacer Glue" contributorURI="platform:/plugin/org.eclipse.ui.ide.application" contributionURI="bundleclass://org.eclipse.e4.ui.workbench.renderers.swt/org.eclipse.e4.ui.workbench.renderers.swt.LayoutModifierToolControl">

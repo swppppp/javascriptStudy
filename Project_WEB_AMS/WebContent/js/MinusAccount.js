@@ -7,7 +7,7 @@ function MinusAccount(accountNum, accountOwner, passwd, restMoney, loanMoney){
 	this.accountNum = accountNum;
 	this.accountOwner = accountOwner;
 	this.passwd = passwd;
-	this.restMoney = restMoney;
+	this.restMoney = restMoney - loanMoney;
 	this.loanMoney = loanMoney;
 }
 
@@ -15,7 +15,7 @@ function MinusAccount(accountNum, accountOwner, passwd, restMoney, loanMoney){
 MinusAccount.prototype = new Account();
 //내려받은 부모메소드 재정의
 MinusAccount.prototype.getRestMoney = function() {
-	return this.restMoney - this.loanMoney;
+	return this.restMoney;
 };
 MinusAccount.prototype.toString = function() {
 	return '대출계좌 ' + this.accountNum + ' ' + this.accountOwner + ' ' +

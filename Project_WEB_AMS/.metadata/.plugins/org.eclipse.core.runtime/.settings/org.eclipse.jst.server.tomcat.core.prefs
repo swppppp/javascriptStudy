@@ -1,2 +1,3 @@
 eclipse.preferences.version=1
-locationorg.eclipse.jst.server.tomcat.runtime.80=C\:/kosta187/tools/apache-tomcat-8.0.53
+locationorg.eclipse.jst.server.tomcat.runtime.80=C\:/Program Files/apache-tomcat-8.0.53
+locationorg.eclipse.jst.server.tomcat.runtime.85=C\:/Program Files/apache-tomcat-8.5.34

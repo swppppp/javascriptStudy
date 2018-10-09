@@ -28,7 +28,8 @@
     <span>계좌번호</span>
     <input type="text" pattern="[0-9]{4}[-][0-9]{3}[-][0-9]{6}" name="accountNum" class="inputField">
     <input type="button" value="조회" class="subBtn">
-    <input type="button" value="삭제" class="subBtn"><br>
+    <input type="button" value="삭제" class="subBtn">
+    <span id="ans">asdf?</span><br>
   </div>
   
   <div>
@@ -39,17 +40,17 @@
   
   <div>
     <span>비밀번호</span>
-    <input type="text" name="passwd" class="inputField"><br>
+    <input type="password" name="passwd" class="inputField"><br>
   </div>
   
   <div>
     <span>입금금액</span>
-    <input type="text" name="depositVal" class="inputField"><br>
+    <input type="number" name="depositVal" class="inputField"><br>
   </div>
   
   <div>
     <span>대출금액</span>
-      <input type="text" name="loanVal" class="inputField">
+      <input type="number" name="loanVal" class="inputField">
       <input type="button" value="신규등록" class="subBtn">
       <input type="button" value="전체조회" class="subBtn"><br>
   </div>
@@ -65,6 +66,7 @@
   </thead>
   
   <tbody>
+  
   <tr>
   <td>입출금</td>
   <td>1002-654-832899</td>

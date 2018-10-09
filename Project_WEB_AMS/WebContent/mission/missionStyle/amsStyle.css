@@ -13,10 +13,10 @@ h2 {
 	color: #1c5d79;
 }
 
-#accResult{
-	margin-left: 15%;
-	margin-right: 15%;
-	margin-bottom: 2%;
+#ans {
+	color: red;
+	visibility: hidden;
+	visibility: 
 }
 
 #amsInput{
@@ -24,6 +24,12 @@ h2 {
 	margin-left: 25%;
 	margin-right: 25%; */
 	margin: 0 23%;
+}
+
+#accResult{
+	margin-left: 15%;
+	margin-right: 15%;
+	margin-bottom: 2%;
 }
 
 div {
