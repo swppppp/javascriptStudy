@@ -64,9 +64,6 @@ function eventResist() {
 	
 	// 전체조회 버튼... 계좌타입에따라 다른 값 보여줌
 	btn[4].onclick = getList;
-	
-	// input영역의 유효성 검증을 위한 
-//	document.getElementsByName('accountNum')[0].setAttribute('onfocus', 'valid()');
 
 	// input영역 입력값에 대한 검증을 위한 onchange속성 추가
 	var inputF = document.querySelectorAll('.inputField')
@@ -94,15 +91,16 @@ function accTypeEnabled() {
  */
 function accSearch() {
 	var findAcc;
-	var acc = document.getElementsByName('accountNum')[0].value.trim();
-	findAcc = manager.get(acc);
+	var acc = document.getElementsByName('accountNum')[0];
+	findAcc = manager.get(acc.value.trim());
 	// 테이블 내용 삭제
 	removeTable();
 	// 입력한 값과 일치하는 계좌가 있다면 해당 계좌를 테이블에 뿌려주는 함수 호출
 	if(findAcc != null){
 		manager.createRow(findAcc);
 	}else{
-		// 알람메세지를 띄우는 코드
+		console.log(acc);
+		validate(acc);
 	}
 }
 
@@ -218,17 +216,52 @@ function removeTable(){
 	}
 }
 
+/**
+ * 유효성 검증
+ * @param inputField 입력값을 받는 element
+ */
 function validate(inputField){
 	// 알림메시지를 띄울 div에 접근
 	var alertDiv = inputField.parentElement.getElementsByTagName('div')[0];
 	// 유효성검증할 입력값
 	var inputVal = inputField.value.trim();
-	var reg = /[0-9]{4}-[0-9]{3}-[0-9]{6}/;
-	console.log(reg.test(inputVal));
-	if(!reg.test(inputVal)){
-		alertDiv.innerText = '*0000-000-000000';
-	}else{
-		alertDiv.innerText = '';
+	// 유효성검증에 쓸 정규식을 위한 변수 선언
+	var reg;
+	// 입력 element의 name속성에 따라
+	switch(inputField.getAttribute('name')){
+	case 'accountNum':
+		reg = /^[0-9]{4}-[0-9]{3}-[0-9]{6}$/;
+		console.log(reg.test(inputVal));
+		if(!reg.test(inputVal)){
+			alertDiv.innerText = '* 0000-000-000000 형식';
+		}else{
+			alertDiv.innerText = '* 일치하는 계좌가 없습니다. 계좌번호를 확인하세요';
+		}
+		break;
+	case 'accOwn':
+		reg = /^[가-힣]{2,4}|[a-zA-Z]{2,10}\s[a-zA-Z]{2,10}$/;
+		if(!reg.test(inputVal)){
+			alertDiv.innerText = '* 한글은 2~4글자(공백없음) 영문은 firstName(2~10글자) 공백 lastName(2~10글자)로 입력해 주세요';
+		}
+		break;
+	case 'passwd':
+		reg = /^[0-9]{4}$/;
+		if(!reg.test(inputVal)){
+			alertDiv.innerText = '* 비밀번호는 네자리 숫자형식 입니다.';
+		}
+		break;
+	case 'depositVal':
+		console.log(inputVal);
+		if(Number(inputVal)<0){
+			console.log
+			alertDiv.innerText = '* 입금금액은 마이너스일 수 없습니다.';
+		}
+		break;
+	case 'loanVal':
+		if(Number(inputVal)<0){
+			alertDiv.innerText = '* 대출금액을 확인해 주세요';
+		}
+		break;
 	}
 }
 

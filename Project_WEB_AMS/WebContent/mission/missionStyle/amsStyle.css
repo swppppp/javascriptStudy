@@ -13,10 +13,16 @@ h2 {
 	color: #1c5d79;
 }
 
+.subBtn {
+	border-radius: 10px;
+	background-color: #75aaff;
+	color: white;
+}
+
 .alertMsg {
 	color: red;
 	font-size: 11px;
-	margin-left: 15%;
+	margin-left: 10%;
 }
 
 input[type="text"], input[type="password"], input[type="number"] {
@@ -51,6 +57,13 @@ form > div {
 	text-align: justify;
 }
 
+span {
+	/* border: 1px solid black; */
+	font-weight: bold;
+	font-size: 12px;
+	color: #1c5d79;
+}
+
 #listSpan {
 	float: left;
 	margin-left: 1%;
@@ -63,13 +76,6 @@ form > div {
 
 form > div > div {
 	margin-top: 2px;
-	
-}
-
-span {
-	/* border: 1px solid black; */
-	font-weight: bold;
-	color: #1c5d79;
 }
 
 table {
@@ -168,8 +174,7 @@ table, tr, td, th {
 	
 	.subBtn {
 		font-size: 11px;
-		padding-left: 0;
-		padding-right: 0;
+
 	}
 	
 	thead {
