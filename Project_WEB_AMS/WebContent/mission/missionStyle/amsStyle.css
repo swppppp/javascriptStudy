@@ -13,16 +13,26 @@ h2 {
 	color: #1c5d79;
 }
 
-#ans {
+.alertMsg {
 	color: red;
-	visibility: hidden;
-	visibility: 
+	font-size: 11px;
+	margin-left: 15%;
+}
+
+input[type="text"], input[type="password"], input[type="number"] {
+	border: white; /* #1c5d79*/
+	border-bottom: #c5d8f7 1px solid;
+}
+input[type="number"]:disabled {
+    background: white;
+    border-bottom: white;
+}
+
+input:focus { 
+  outline: none; 
 }
 
 #amsInput{
-	/* background-color: #FFB2D9; 
-	margin-left: 25%;
-	margin-right: 25%; */
 	margin: 0 23%;
 }
 
