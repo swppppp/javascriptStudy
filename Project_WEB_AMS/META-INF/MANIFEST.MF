@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Project_WEB_AMS
+Bundle-SymbolicName: Project_WEB_AMS
+Bundle-Version: 1.0.0.qualifier
