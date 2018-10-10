@@ -50,11 +50,22 @@ function eventResist() {
 		curFocus[i].setAttribute('onfocusout', 'focusOut(this)');
 	}
 	
-	// 버튼이벤트
+	// 버튼이벤트->마우스 들어오면 색 변경
 	var btn = document.querySelectorAll('.subBtn');
+	for(var i=0; i<btn.length; i++){
+		btn[i].setAttribute('onmouseover','btnOverStyle(this)');
+		btn[i].setAttribute('onmouseout', 'btnOutStyle(this)');
+	}
 	
 	// 조회 버튼... 계좌번호로 조회
 	btn[0].onclick = accSearch;
+	// 계좌번호입력 후 focus유지한 채 enter
+	var target = document.getElementsByName('accountNum')[0];
+	target.onkeyup = function(e) {
+		var event = e || window.event;
+		if(event.keyCode == 13)
+			accSearch();
+	}
 
 	// 삭제 버튼... 계좌번호로 삭제
 	btn[1].onclick = accRemove;
@@ -63,7 +74,7 @@ function eventResist() {
 	// 검색 버튼 클릭 
 	btn[2].onclick = ownSearch;
 	// 예금주명 입력 후 enter
-	var target = document.getElementsByName('accOwn')[0];
+	target = document.getElementsByName('accOwn')[0];
 	target.onkeyup = function(e) {
 		var event = e || window.event;
 		if(event.keyCode == 13) //enter키일때
@@ -129,14 +140,16 @@ function accSearch() {
 	var acc = manager.get(findAcc);
 	// table 내용 삭제
 	removeTable();
+	//input필드 내용 삭제(입력한계좌번호 빼고 삭제)
+	clearInput();
+	findAccElement.value = findAcc;
 	// 유효성검증
 	if(validate(findAccElement)){
 		// 패턴맞고 찾는 계좌 있을경우
 		if(manager.get(findAcc)){
 			manager.createRow(acc);
 		}else{
-			//패턴은 맞으나 일치하는 계좌가 없는경우 메세지띄우는거 스낵바..?
-			console.log('cooooooola')
+			snackAlert('일치하는 계좌가 없습니다.');
 		}
 	}
 }
@@ -154,11 +167,10 @@ function accRemove() {
 	if(validate(rAccElement)){
 		if(rResult){
 			//삭제알람 스낵바
-			console.log('삭제성공!!!!!!!!!');
-			rAccElement.value='';
+			snackAlert('삭제되었습니다.');
+			clearInput();
 		}else{
-			// 일치계좌 없는거 스낵바
-			console.log('일치계좌없어용');
+			snackAlert('일치하는 계좌가 없습니다.');
 		}
 	}
 }
@@ -177,9 +189,9 @@ function ownSearch() {
 		manager.search(accOwn);
 		// 패턴은 일치하지만 찾는 결과가 없는경우 메시지띄우기
 		if(document.getElementsByTagName('tr').length == 1){
-			showAlertMsg('* 일치하는계좌가 없습니다.', accOwnElement.parentElement.getElementsByTagName('div')[0]);
+			snackAlert('일치하는 계좌가 없습니다.');
 		}else{ //패턴일치, 결과 있으면 메시지 초기화
-			showAlertMsg('', accOwnElement.parentElement.getElementsByTagName('div')[0])
+			deleteAlertMsg();
 		}
 	}
 }
@@ -207,7 +219,7 @@ function addAcc() {
 
 	// 계좌 종류 선택 안했을 시 메시지 띄움
 	if(optionVal.trim() == '전체'){
-		showAlertMsg('계좌종류를 선택해 주세요', alertDiv);
+		showAlertMsg('* 계좌종류를 선택해 주세요', alertDiv);
 	}else if(optionVal.trim() == '입출금계좌'){
 		// 계좌 종류 선택-> 관련 알림 초기화
 		showAlertMsg('', alertDiv);
@@ -219,10 +231,16 @@ function addAcc() {
 		if(validate(accNum) && validate(accOwn) && validate(passwd) && validate(deposit)){
 			addAcc = new Account(accNum.value, accOwn.value, passwd.value, deposit.value);
 			if(!manager.add(addAcc)){
-				showAlertMsg('계좌번호를 확인해주세요', accNum.parentElement.getElementsByClassName('alertMsg')[0]);
+				showAlertMsg('* 계좌번호를 확인해주세요', accNum.parentElement.getElementsByClassName('alertMsg')[0]);
 			}else {
 				manager.add(addAcc);
-				showAlertMsg('새 계좌를 등록하였습니다.', document.getElementsByName('loanVal')[0].parentElement.getElementsByClassName('alertMsg')[0]);
+				snackAlert('새 계좌를 등록하였습니다.');
+//				showAlertMsg('새 계좌를 등록하였습니다.', document.getElementsByName('loanVal')[0].parentElement.getElementsByClassName('alertMsg')[0]);
+				// 인풋값 비워주기
+				accNum.value='';
+				accOwn.value='';
+				passwd.value='';
+				deposit.value='';
 			}
 		}
 		
@@ -234,10 +252,17 @@ function addAcc() {
 		if(validate(accNum) && validate(accOwn) && validate(passwd) && validate(deposit) && validate(loan)){
 			addAcc = new MinusAccount(accNum.value, accOwn.value, passwd.value, deposit.value, loan.value);
 			if(!manager.add(addAcc)){
-				showAlertMsg('계좌번호를 확인해주세요', accNum.parentElement.getElementsByClassName('alertMsg')[0]);
+				showAlertMsg('* 계좌번호를 확인해주세요', accNum.parentElement.getElementsByClassName('alertMsg')[0]);
 			}else {
 				manager.add(addAcc);
-				showAlertMsg('새 계좌를 등록하였습니다.', document.getElementsByName('loanVal')[0].parentElement.getElementsByClassName('alertMsg')[0]);
+				snackAlert('새 계좌를 등록하였습니다.');
+//				showAlertMsg('새 계좌를 등록하였습니다.', document.getElementsByName('loanVal')[0].parentElement.getElementsByClassName('alertMsg')[0]);
+				// input값 비워주기
+				accNum.value='';
+				accOwn.value='';
+				passwd.value='';
+				deposit.value='';
+				loan.value='';
 			}
 		}
 	}
@@ -248,6 +273,10 @@ function addAcc() {
  * 계좌종류에 따라 accountManager의 다른 메소드 호출
  */
 function getList(){
+	// 알람메시지와 input값 초기화
+	deleteAlertMsg();
+	clearInput();
+	
 	var optionVal = document.getElementsByName('accType')[0].value;
 	
 	// table 내용 삭제
@@ -278,6 +307,7 @@ function removeTable(){
  * @return 패턴일치여부
  */
 function validate(inputField){
+	deleteAlertMsg();
 	// 알림메시지를 띄울 div에 접근
 	var alertDiv = inputField.parentElement.getElementsByTagName('div')[0];
 	// 유효성검증할 입력값
@@ -288,7 +318,6 @@ function validate(inputField){
 	switch(inputField.getAttribute('name')){
 	case 'accountNum':
 		reg = /^[0-9]{4}-[0-9]{3}-[0-9]{6}$/;
-		console.log(reg.test(inputVal));
 		if(!reg.test(inputVal)){
 			showAlertMsg('* 0000-000-000000 형식으로 입력해 주세요', alertDiv);
 			return false;
@@ -327,7 +356,7 @@ function validate(inputField){
 		}
 		break;
 	case 'loanVal':
-		if(Number(inputVal)<0){
+		if(Number(inputVal)<=0){
 			showAlertMsg('* 대출금액을 확인해 주세요', alertDiv);
 			return false;
 		}else{
@@ -348,6 +377,24 @@ function showAlertMsg(msg, inputElement) {
 	var target = inputElement.parentElement.getElementsByTagName('div')[0];
 	target.innerText = msg;
 }
+/**
+ * 알림메시지 모두 초기화하는 기능
+ */
+function deleteAlertMsg() {
+	var alertDiv = document.querySelectorAll('.alertMsg');
+	for(var i=0; i<alertDiv.length; i++){
+		alertDiv[i].innerText = '';
+	}
+}
+/**
+ * inputField값 초기화
+ */
+function clearInput() {
+	var inputTF = document.querySelectorAll('.inputField');
+	for(var i=0; i<inputTF.length; i++){
+		inputTF[i].value = '';
+	}
+}
 
 /**
  * 포커싱된 영역 인풋의 스타일 변경
@@ -365,6 +412,29 @@ function focusOut(focuseOutElement){
 	focuseOutElement.removeAttribute('style');
 }
 
+/**
+ * 알림메시지 스낵바띄우는 기능
+ */
+function snackAlert(msg) {
+	var snackbar = document.getElementsByTagName('body')[0].appendChild(document.createElement('div'));
+	snackbar.id = 'snackbar';
+	snackbar.innerText = msg;
+	
+	var x = document.getElementById("snackbar");
+	x.className = "show";
+	setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+}
+
+/**
+ * 버튼에 마우스오버될때, 엔터로 이벤트발생할 때
+ * 버튼 배경색 변경
+ */
+function btnOverStyle(btnElement) {
+	btnElement.setAttribute('style', 'background-color: #c5d8f7');
+}
+function btnOutStyle(btnElement) {
+	btnElement.removeAttribute('style');
+}
 
 
 

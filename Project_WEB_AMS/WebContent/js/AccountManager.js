@@ -28,28 +28,30 @@ AccountManager.prototype.add = function(account) {
 	return true;
 }
 
-// 테이블에 계좌정보 row 생성하는 메소드
+/**
+ * 테이블에 계좌정보 row를 append해주는 메소드
+ */
 AccountManager.prototype.createRow = function(account) {
 	var accRow = document.createElement('tr');
 	var td1 =document.createElement('td');
 	var td2 =document.createElement('td');
 	var td3 =document.createElement('td');
-	var td4 =document.createElement('td');
-	var td5 =document.createElement('td');
+	var td4 =document.createElement('td'); td4.setAttribute('class', 'rtd'); //금액 오른쪽정렬
+	var td5 =document.createElement('td'); td5.setAttribute('class', 'rtd'); //금액 오른쪽정렬
 
 	//대출계좌일때
 	if(account instanceof MinusAccount){
 		var accType = document.createTextNode('대출계좌');
 		var accNum = document.createTextNode(account.accountNum);
 		var accOwn = document.createTextNode(account.accountOwner);
-		var restMoney = document.createTextNode(account.restMoney);
-		var loanMoney = document.createTextNode(account.loanMoney);
+		var restMoney = document.createTextNode(Number(account.restMoney).toLocaleString()); // 3자리수단위로 콤마
+		var loanMoney = document.createTextNode(Number(account.loanMoney).toLocaleString()); // 3자리수단위로 콤마
 		
 		td1.appendChild(accType);
 		td2.appendChild(accNum);
 		td3.appendChild(accOwn);
-		td4.appendChild(restMoney);
-		td5.appendChild(loanMoney);
+		td4.appendChild(restMoney); 
+		td5.appendChild(loanMoney); 
 		
 		accRow.appendChild(td1);
 		accRow.appendChild(td2);
@@ -62,7 +64,7 @@ AccountManager.prototype.createRow = function(account) {
 		var accType = document.createTextNode('일반계좌');
 		var accNum = document.createTextNode(account.accountNum);
 		var accOwn = document.createTextNode(account.accountOwner);
-		var restMoney = document.createTextNode(account.restMoney);
+		var restMoney = document.createTextNode(Number(account.restMoney).toLocaleString()); // 3자리수단위로 콤마
 		var loanMoney = document.createTextNode(0);
 		
 		td1.appendChild(accType);
@@ -81,14 +83,18 @@ AccountManager.prototype.createRow = function(account) {
 	}
 }
 
-// 전체계좌 출력
+/**
+ * 전체계좌 출력
+ */
 AccountManager.prototype.listAll = function() {
 	for ( var i in this.accounts) {
 		this.createRow(this.accounts[i]);
 	}
 }
 
-//입출금계좌만 모두 출력
+/**
+ * 일반계좌만 출력
+ */
 AccountManager.prototype.accList = function(){
 	for ( var i in this.accounts) {
 		if(this.accounts[i] instanceof MinusAccount){
@@ -99,7 +105,9 @@ AccountManager.prototype.accList = function(){
 	}
 }
 
-//대출계좌만 모두 출력
+/**
+ * 대출계좌만 출력
+ */ 
 AccountManager.prototype.mAccList = function() {
 	for ( var i in this.accounts) {
 		if(this.accounts[i] instanceof MinusAccount){
@@ -110,7 +118,9 @@ AccountManager.prototype.mAccList = function() {
 	}
 }
 
-// 계좌번호로 계좌조회
+/**
+ * 계좌번호로 계좌 조회
+ */
 AccountManager.prototype.get = function(accountNum) {
 	var acc;
 	for ( var i in this.accounts) {
@@ -124,7 +134,9 @@ AccountManager.prototype.get = function(accountNum) {
 	else return null;
 }
 
-// 예금주명으로 계좌조회
+/**
+ * 예금주명으로 계좌조회
+ */
 AccountManager.prototype.search = function(accountOwner) {
 	for ( var i in this.accounts) {
 		if(this.accounts[i].accountOwner == accountOwner){
@@ -133,8 +145,10 @@ AccountManager.prototype.search = function(accountOwner) {
 	}
 }
 
-// 계좌번호로 해당 계좌 삭제
-// 입력값과 일치하는 계좌번호의 Account객체 빼기(splice)
+/**
+ * 계좌번호로 해당계좌 삭제
+ * 입력값과 일치하는 계좌번호의 Account객체 빼기(splice)
+ */
 AccountManager.prototype.remove = function(accountNum) {
 	var isRemove = false;
 	

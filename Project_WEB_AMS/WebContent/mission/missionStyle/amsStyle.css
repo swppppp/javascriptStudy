@@ -1,12 +1,16 @@
 body{
 		margin: 1% 15% 1% 15%;
+		font-family:  'Nanum Gothic', sans-serif;
 	}
 form {
 	border: 2px solid #c5d8f7;
 	border-radius: 10px;
-	font-family: 'Open Sans', sans-serif;
+	font-family: 'Nanum Gothic', sans-serif;
 	text-align: center;
-	/*background-color: #c5d8f7; #7fa9ef */
+}
+
+input {
+	font-family:  'Nanum Gothic', sans-serif;
 }
 
 h2 {
@@ -21,7 +25,7 @@ h2 {
 
 .alertMsg {
 	color: red;
-	font-size: 11px;
+	font-size: 12px;
 	margin-left: 10%;
 }
 
@@ -54,7 +58,7 @@ input:focus {
 }
 
 div {
-	/* border: 1px solid black; */
+	font-family: 'Nanum Gothic', sans-serif;
 }
 
 form > div {
@@ -63,9 +67,8 @@ form > div {
 }
 
 span {
-	/* border: 1px solid black; */
-	font-weight: bold;
-	font-size: 12px;
+	font-weight: 550;
+	font-size: 15px;
 	color: #1c5d79;
 }
 
@@ -89,7 +92,7 @@ table {
 	margin-top: 5px;
 	margin-bottom: 5px;
 	border-collapse: collapse;
-	font-family: "Trebuchet MS", Trebuchet, Arial, sans-serif;
+	font-family: 'Nanum Gothic', sans-serif;
 	color: #1c5d79;
 }
 
@@ -107,8 +110,7 @@ thead tr th {
 
     color: #1c5d79;
 
-	background-color: #7fa9ef;
-    background-repeat: repeat-x;
+	background-color: #c2d8f9;
 
     border-left: solid 1px #FF9900;
 
@@ -119,7 +121,7 @@ thead tr th {
 }
 tbody tr {
 
-    background: #dfedf3;
+    background-color: #f7faff;
 
     font-size: 13px;
 
@@ -135,6 +137,50 @@ tbody tr th, tbody tr td {
 table, tr, td, th {
 	border: 1px solid black;
 }
+
+/* 알림메시지 스낵바 스타일 */
+#snackbar {
+    visibility: hidden;
+    min-width: 250px;
+    margin-left: -125px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    padding: 16px;
+    position: fixed;
+    z-index: 1;
+    left: 50%;
+    bottom: 30px;
+    font-size: 17px;
+}
+
+#snackbar.show {
+    visibility: visible;
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+@-webkit-keyframes fadein {
+    from {bottom: 0; opacity: 0;} 
+    to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+    from {bottom: 0; opacity: 0;}
+    to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+    from {bottom: 30px; opacity: 1;} 
+    to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+    from {bottom: 30px; opacity: 1;}
+    to {bottom: 0; opacity: 0;}
+}
+/***************************************************/
 
 
 /* 1023px 데스크톱 우선 */
