@@ -14,28 +14,21 @@ function AccountManager(){
 	this.accounts = new Array();
 }
 
-//계좌종류 확인
-AccountManager.prototype.typeofAcc = function(account){
-	if(account.hasOwnProperty('loanMoney')){
-		return false; //대출계좌
-	}
-	else{
-		return true; //일반계좌
-	}
-}
-
-
-// 계좌 추가
+/**
+ * 계좌 추가 메소드
+ * 정상추가->true반환, 추가X->false반환
+ */
 AccountManager.prototype.add = function(account) {
 	for ( var i in this.accounts) {
 		if(this.accounts[i]['accountNum']===account['accountNum']){
-			return console.log('계좌정보를 확인해 주세요');
+			return false;
 		}
 	}
 	this.accounts.push(account);
+	return true;
 }
 
-// 테이블에 계좌정보 추가하는 메소드
+// 테이블에 계좌정보 row 생성하는 메소드
 AccountManager.prototype.createRow = function(account) {
 	var accRow = document.createElement('tr');
 	var td1 =document.createElement('td');
@@ -88,10 +81,10 @@ AccountManager.prototype.createRow = function(account) {
 	}
 }
 
+// 전체계좌 출력
 AccountManager.prototype.listAll = function() {
 	for ( var i in this.accounts) {
 		this.createRow(this.accounts[i]);
-		console.log(this.accounts[i].toString() + '\n');
 	}
 }
 
@@ -102,7 +95,6 @@ AccountManager.prototype.accList = function(){
 			continue;
 		}else{
 			this.createRow(this.accounts[i]);
-			console.log(this.accounts[i].toString() + '\n');
 		}
 	}
 }
@@ -112,14 +104,13 @@ AccountManager.prototype.mAccList = function() {
 	for ( var i in this.accounts) {
 		if(this.accounts[i] instanceof MinusAccount){
 			this.createRow(this.accounts[i]);
-			console.log(this.accounts[i].toString() + '\n');
 		}else{
 			continue;
 		}
 	}
 }
 
-//Account객체의 accountNum값이 주어졌을 때 일치하는 Account객체 반환
+// 계좌번호로 계좌조회
 AccountManager.prototype.get = function(accountNum) {
 	var acc;
 	for ( var i in this.accounts) {
@@ -130,32 +121,24 @@ AccountManager.prototype.get = function(accountNum) {
 	if(acc != null){
 		return acc;
 	}
-	else console.log('일치하는 계좌가 없습니다.');
+	else return null;
 }
 
-//Account객체의 accountOwner값이 주어졌을 때 일치하는 Account객체(들)을 담은 배열반환
+// 예금주명으로 계좌조회
 AccountManager.prototype.search = function(accountOwner) {
-	//var accArr = new Array();
 	for ( var i in this.accounts) {
 		if(this.accounts[i].accountOwner == accountOwner){
-//			accArr.push(this.accounts[i]);
 			this.createRow(this.accounts[i]);
 		}
 	}
-//	if(accArr.length != 0){
-//		for ( var i in accArr) {
-//		}
-//	}
-//	else console.log('일치하는 예금주 명이 없습니다.');
 }
 
-//Account객체의 accountNum값이 주어졌을때 일치하는 Account객체 빼기(splice)
+// 계좌번호로 해당 계좌 삭제
+// 입력값과 일치하는 계좌번호의 Account객체 빼기(splice)
 AccountManager.prototype.remove = function(accountNum) {
 	var isRemove = false;
-	console.log(accountNum);
 	
 	for ( var i in this.accounts) {
-		console.log(this.accounts[i]);
 		if(this.accounts[i].accountNum == accountNum){
 			this.accounts.splice(i, 1);
 			isRemove = true;

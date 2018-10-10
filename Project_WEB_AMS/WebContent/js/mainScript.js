@@ -30,6 +30,9 @@ function init() {
 	manager.add(acc4);
 	manager.add(acc5);
 	manager.add(acc6);
+	
+	//비번, 금액 input필드 비활성화
+	disableInput();
 }
 
 /**
@@ -37,7 +40,7 @@ function init() {
  */
 function eventResist() {
 	
-	// 계좌 종류 선택에 따른 대출금액항목 비활성
+	// 계좌 종류 선택에 따른 입력영역 활성/비활성
 	document.getElementsByName('accType')[0].onchange= accTypeEnabled;
 	
 	// 포커싱이벤트... 포커싱영역 style변경
@@ -56,10 +59,19 @@ function eventResist() {
 	// 삭제 버튼... 계좌번호로 삭제
 	btn[1].onclick = accRemove;
 	
-	// 검색 버튼... 예금주명으로 계좌 조회
+	//예금주명으로 계좌 조회
+	// 검색 버튼 클릭 
 	btn[2].onclick = ownSearch;
+	// 예금주명 입력 후 enter
+	var target = document.getElementsByName('accOwn')[0];
+	target.onkeyup = function(e) {
+		var event = e || window.event;
+		if(event.keyCode == 13) //enter키일때
+			ownSearch();
+	}
 	
-	// 신규등록 버튼... 
+	// 신규등록 
+	// 신규등록버튼클릭 
 	btn[3].onclick = addAcc;
 	
 	// 전체조회 버튼... 계좌타입에따라 다른 값 보여줌
@@ -73,16 +85,38 @@ function eventResist() {
 }
 
 /**
+ * 페이지가 로드될때 비밀번호, 금액 입력창 비활성화
+ */
+function disableInput() {
+	document.getElementsByName('passwd')[0].setAttribute('disabled', 'disabled');
+	document.getElementsByName('depositVal')[0].setAttribute('disabled', 'disabled');
+	document.getElementsByName('loanVal')[0].setAttribute('disabled', 'disabled');
+}
+
+/**
  * 계좌종류 선택에따라 대출금액 비활성화해주는 기능
  */
 function accTypeEnabled() {
+	// 입력항목 선언 및 할당
+	var inputs = document.getElementsByClassName('inputField');
 	// 계좌종류가 입출금계좌이면
 	if(document.getElementsByName('accType')[0].value.trim() == '입출금계좌'){
-		// 대출금액항목의 비활성속성 주가
+		// 대출금액 항목 제외하고 비활성 풀어줌
+		for(var i=0; i<inputs.length; i++){
+			inputs[i].removeAttribute('disabled');
+		}
 		document.getElementsByName('loanVal')[0].setAttribute('disabled', 'disabled');
-	}else{
+		// 계좌선택 경고메시지 있으면 지워주기
+		showAlertMsg('', document.getElementsByName('accType')[0].parentElement.getElementsByClassName('alertMsg')[0]);
+	}else if(document.getElementsByName('accType')[0].value.trim() == '대출계좌'){
 		// 입출금계좌가 아니면 대출금액항목 비활성 속성 삭제
-		document.getElementsByName('loanVal')[0].removeAttribute('disabled');
+		for(var i=0; i<inputs.length; i++){
+			inputs[i].removeAttribute('disabled');
+		}
+		// 계좌선택 경고메시지 있으면 지워주기
+		showAlertMsg('', document.getElementsByName('accType')[0].parentElement.getElementsByClassName('alertMsg')[0]);
+	}else{
+		disableInput();
 	}
 }
 
@@ -90,17 +124,20 @@ function accTypeEnabled() {
  * 계좌번호를 통해 조회하는 기능
  */
 function accSearch() {
-	var findAcc;
-	var acc = document.getElementsByName('accountNum')[0];
-	findAcc = manager.get(acc.value.trim());
-	// 테이블 내용 삭제
+	var findAccElement = document.getElementsByName('accountNum')[0];
+	var findAcc = findAccElement.value.trim();
+	var acc = manager.get(findAcc);
+	// table 내용 삭제
 	removeTable();
-	// 입력한 값과 일치하는 계좌가 있다면 해당 계좌를 테이블에 뿌려주는 함수 호출
-	if(findAcc != null){
-		manager.createRow(findAcc);
-	}else{
-		console.log(acc);
-		validate(acc);
+	// 유효성검증
+	if(validate(findAccElement)){
+		// 패턴맞고 찾는 계좌 있을경우
+		if(manager.get(findAcc)){
+			manager.createRow(acc);
+		}else{
+			//패턴은 맞으나 일치하는 계좌가 없는경우 메세지띄우는거 스낵바..?
+			console.log('cooooooola')
+		}
 	}
 }
 
@@ -108,21 +145,21 @@ function accSearch() {
  * 계좌번호를 통한 삭제
  */
 function accRemove() {
-	// 입력받은 지울 계좌번호 접근
-	var rAcc = document.getElementsByName('accountNum')[0].value;
-	rAcc.trim();
-	////결과메시지 보여줄 div영역 접근
-	var alertDiv = document.getElementsByClassName('alertMsg')[0];
-	// AccountManager의 삭제기능 호출, 결과(boolean)받아오기
-	var result = manager.remove(rAcc);
-	// 정상 삭제하였으면
-	if(result){
-		// 결과메시지 영역에 성공메시지 보여주기
-		alertDiv.innerText = '* 삭제성공!';
-		alertDiv.setAttribute("style", "color: #1c5d79");
-	}else{
-		// 입력받은 값이 없거나 잘못된경우 경고메시지 출력
-		alertDiv.innerText = '* 계좌번호를 확인해 주세요';
+
+	var rAccElement = document.getElementsByName('accountNum')[0];
+	var rAcc = rAccElement.value.trim();
+	var rResult = manager.remove(rAcc);  //boolean
+	removeTable();
+	// 유효성검증
+	if(validate(rAccElement)){
+		if(rResult){
+			//삭제알람 스낵바
+			console.log('삭제성공!!!!!!!!!');
+			rAccElement.value='';
+		}else{
+			// 일치계좌 없는거 스낵바
+			console.log('일치계좌없어용');
+		}
 	}
 }
 
@@ -130,60 +167,79 @@ function accRemove() {
  * 예금주명으로 계좌조회
  */
 function ownSearch() {
-	var accOwn = document.getElementsByName('accOwn')[0].value;
-	accOwn.trim();
+	var accOwnElement = document.getElementsByName('accOwn')[0];
+	var accOwn = accOwnElement.value.trim();
 	// table 내용 삭제
 	removeTable();
-	// 찾은 계좌 테이블에 붙여주기
-	manager.search(accOwn);
+	// 패턴이 맞으면 테이블에 결과출력 및 알림메시지 초기화
+	if(validate(accOwnElement)){
+		// 찾은 계좌 테이블에 붙여주기
+		manager.search(accOwn);
+		// 패턴은 일치하지만 찾는 결과가 없는경우 메시지띄우기
+		if(document.getElementsByTagName('tr').length == 1){
+			showAlertMsg('* 일치하는계좌가 없습니다.', accOwnElement.parentElement.getElementsByTagName('div')[0]);
+		}else{ //패턴일치, 결과 있으면 메시지 초기화
+			showAlertMsg('', accOwnElement.parentElement.getElementsByTagName('div')[0])
+		}
+	}
 }
 
 /**
  * 새 계좌 등록
  */
 function addAcc() {
-	//계좌 종류 확인
-	var acctype = document.getElementsByName('accType');
-	var idx = acctype[0].selectedIndex
-	var optionVal = acctype[0].options[idx].innerText;
-	
 	// 추가할 계좌를 담을 계좌객체 선언
 	var addAcc;
-	// 계좌에 담길 값들 선언
-	var accNum = document.getElementsByName('accountNum')[0].value;
-	var accOwn = document.getElementsByName('accOwn')[0].value;
-	var passwd = document.getElementsByName('passwd')[0].value;
-	var deposit = document.getElementsByName('depositVal')[0].value;
-	var loan = document.getElementsByName('loanVal')[0].value;
-	
+	// 계좌에 담길 값들 입력받은 element 선언 및 할당
+	var accNum = document.getElementsByName('accountNum')[0];
+	var accOwn = document.getElementsByName('accOwn')[0];
+	var passwd = document.getElementsByName('passwd')[0];
+	var deposit = document.getElementsByName('depositVal')[0];
+	var loan = document.getElementsByName('loanVal')[0];
+
+	//계좌 종류 확인
+	var acctype = document.getElementsByName('accType')[0];
+	var idx = acctype.selectedIndex
+	var optionVal = acctype.options[idx].innerText;
+
+	// 계좌종류 선택 알림 띄울 div element
+	var alertDiv = acctype.parentElement.getElementsByClassName('alertMsg')[0];
+
+	// 계좌 종류 선택 안했을 시 메시지 띄움
 	if(optionVal.trim() == '전체'){
-		var ansTarget = document.getElementById('ans');
-		ansTarget.innerText = '계좌종류선택 필';
-		ansTarget.setAttribute('style', 'visibility: visible; color: #1c5d79');
+		showAlertMsg('계좌종류를 선택해 주세요', alertDiv);
 	}else if(optionVal.trim() == '입출금계좌'){
+		// 계좌 종류 선택-> 관련 알림 초기화
+		showAlertMsg('', alertDiv);
+		
 		// 입출금계좌일때 대출금액항목 비활성화
 		document.getElementsByName('loanVal')[0].setAttribute('disabled', 'disabled');
+
+		// 각 element 유효성 검사 모두 true일 경우
+		if(validate(accNum) && validate(accOwn) && validate(passwd) && validate(deposit)){
+			addAcc = new Account(accNum.value, accOwn.value, passwd.value, deposit.value);
+			if(!manager.add(addAcc)){
+				showAlertMsg('계좌번호를 확인해주세요', accNum.parentElement.getElementsByClassName('alertMsg')[0]);
+			}else {
+				manager.add(addAcc);
+				showAlertMsg('새 계좌를 등록하였습니다.', document.getElementsByName('loanVal')[0].parentElement.getElementsByClassName('alertMsg')[0]);
+			}
+		}
 		
-		// 계좌 property 값 할당
-		accNum = document.getElementsByName('accountNum')[0].value;
-		accOwn = document.getElementsByName('accOwn')[0].value;
-		passwd = document.getElementsByName('passwd')[0].value;
-		deposit = document.getElementsByName('depositVal')[0].value;
-		addAcc = new Account(accNum, accOwn, passwd, deposit);
-		// manager의 계좌배열에 add
-		manager.add(addAcc);
+	}else if(optionVal.trim() == '대출계좌'){
+		// 계좌 종류 선택-> 관련 알림 초기화
+		showAlertMsg('', alertDiv);
 		
-	}else if(optionVa.trim() == '대출계좌'){
-		// 계좌 property 값 할당
-		accNum = document.getElementsByName('accountNum')[0].value;
-		accOwn = document.getElementsByName('accOwn')[0].value;
-		passwd = document.getElementsByName('passwd')[0].value;
-		deposit = document.getElementsByName('depositVal')[0].value;
-		loan = document.getElementsByName('loanVal')[0].value;
-		addAcc = new MinusAccount(accNum, accOwn, passwd, deposit, loan);
-		
-		// manager의 계좌배열에 add
-		manager.add(addAcc);
+		// 각 element 유효성 검사 모두 true일 경우
+		if(validate(accNum) && validate(accOwn) && validate(passwd) && validate(deposit) && validate(loan)){
+			addAcc = new MinusAccount(accNum.value, accOwn.value, passwd.value, deposit.value, loan.value);
+			if(!manager.add(addAcc)){
+				showAlertMsg('계좌번호를 확인해주세요', accNum.parentElement.getElementsByClassName('alertMsg')[0]);
+			}else {
+				manager.add(addAcc);
+				showAlertMsg('새 계좌를 등록하였습니다.', document.getElementsByName('loanVal')[0].parentElement.getElementsByClassName('alertMsg')[0]);
+			}
+		}
 	}
 }
 
@@ -217,8 +273,9 @@ function removeTable(){
 }
 
 /**
- * 유효성 검증
+ * 유효성(입력패턴) 검증
  * @param inputField 입력값을 받는 element
+ * @return 패턴일치여부
  */
 function validate(inputField){
 	// 알림메시지를 띄울 div에 접근
@@ -233,36 +290,63 @@ function validate(inputField){
 		reg = /^[0-9]{4}-[0-9]{3}-[0-9]{6}$/;
 		console.log(reg.test(inputVal));
 		if(!reg.test(inputVal)){
-			alertDiv.innerText = '* 0000-000-000000 형식';
+			showAlertMsg('* 0000-000-000000 형식으로 입력해 주세요', alertDiv);
+			return false;
 		}else{
-			alertDiv.innerText = '* 일치하는 계좌가 없습니다. 계좌번호를 확인하세요';
+			showAlertMsg('', alertDiv);
+			return true;
 		}
 		break;
-	case 'accOwn':
-		reg = /^[가-힣]{2,4}|[a-zA-Z]{2,10}\s[a-zA-Z]{2,10}$/;
+	case 'accOwn': //|[a-zA-Z]{2,10}\s[a-zA-Z]{2,10}
+		reg = /^[가-힣]{2,4}$/;
 		if(!reg.test(inputVal)){
-			alertDiv.innerText = '* 한글은 2~4글자(공백없음) 영문은 firstName(2~10글자) 공백 lastName(2~10글자)로 입력해 주세요';
+			showAlertMsg('* 한글 2~4글자(공백없음)로 입력해 주세요', alertDiv);
+			return false;
+		}else{
+			showAlertMsg('', alertDiv);
+			return true;
 		}
 		break;
 	case 'passwd':
 		reg = /^[0-9]{4}$/;
 		if(!reg.test(inputVal)){
-			alertDiv.innerText = '* 비밀번호는 네자리 숫자형식 입니다.';
+			showAlertMsg('* 비밀번호는 네자리 숫자형식 입니다.', alertDiv);
+			return false;
+		}else{
+			showAlertMsg('', alertDiv);
+			return true;
 		}
 		break;
 	case 'depositVal':
-		console.log(inputVal);
 		if(Number(inputVal)<0){
-			console.log
-			alertDiv.innerText = '* 입금금액은 마이너스일 수 없습니다.';
+			showAlertMsg('* 입금금액은 마이너스일 수 없습니다.', alertDiv);
+			return false;
+		}else{
+			showAlertMsg('', alertDiv);
+			return true;
 		}
 		break;
 	case 'loanVal':
 		if(Number(inputVal)<0){
-			alertDiv.innerText = '* 대출금액을 확인해 주세요';
+			showAlertMsg('* 대출금액을 확인해 주세요', alertDiv);
+			return false;
+		}else{
+			showAlertMsg('', alertDiv);
+			return true;
 		}
 		break;
 	}
+}
+
+/**
+ * inpuField의 유효성검증에 따른 알림메세지 보여주는 기능
+ * @param msg	 보여줄 메세지
+ * @param inputElement 입력필드 element
+ * @returns
+ */
+function showAlertMsg(msg, inputElement) {
+	var target = inputElement.parentElement.getElementsByTagName('div')[0];
+	target.innerText = msg;
 }
 
 /**

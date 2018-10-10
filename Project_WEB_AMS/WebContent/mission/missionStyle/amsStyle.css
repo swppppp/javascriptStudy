@@ -30,8 +30,13 @@ input[type="text"], input[type="password"], input[type="number"] {
 	border-bottom: #c5d8f7 1px solid;
 }
 input[type="number"]:disabled {
-    background: white;
+    background: #f2f4f7;
     border-bottom: white;
+}
+
+.inputField:disabled {
+	background-color: #f2f4f7;
+	border-bottom: white;
 }
 
 input:focus { 
