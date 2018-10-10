@@ -51,7 +51,7 @@ function eventResist() {
 	}
 	
 	// 버튼이벤트->마우스 들어오면 색 변경
-	var btn = document.querySelectorAll('.subBtn');
+	var btn = document.getElementsByClassName('subBtn');
 	for(var i=0; i<btn.length; i++){
 		btn[i].setAttribute('onmouseover','btnOverStyle(this)');
 		btn[i].setAttribute('onmouseout', 'btnOutStyle(this)');
@@ -233,7 +233,9 @@ function addAcc() {
 			if(!manager.add(addAcc)){
 				showAlertMsg('* 계좌번호를 확인해주세요', accNum.parentElement.getElementsByClassName('alertMsg')[0]);
 			}else {
+				console.log('dhodhdohdo');
 				manager.add(addAcc);
+				
 				snackAlert('새 계좌를 등록하였습니다.');
 //				showAlertMsg('새 계좌를 등록하였습니다.', document.getElementsByName('loanVal')[0].parentElement.getElementsByClassName('alertMsg')[0]);
 				// 인풋값 비워주기
